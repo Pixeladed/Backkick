@@ -1,6 +1,6 @@
 {
 	"name":"backkick",
-	"version":"0.0.2",
+	"version":"0.0.3",
 	"description":"A command-line tool to link all css and js files",
 	"author":"Minh Le",
 	"bin": {
