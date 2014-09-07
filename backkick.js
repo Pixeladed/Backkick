@@ -6,7 +6,7 @@ var readline = require('readline');
 var nestedDir = [];
 var jsF = [];
 var cssF = [];
-var htmlFILE = process.argv[2];
+var htmlFILE,explorePath;
 var terminal = readline.createInterface({
 	input:process.stdin,
 	output:process.stdout
@@ -14,6 +14,12 @@ var terminal = readline.createInterface({
 var beginWF = "<!DOCTYPE html>\r\n<html>\r\n\t<head>\r\n\t\t<title> </title>";
 var endWF = "\r\n\t</head>\r\n\t<body>\r\n\t\t\r\n\t</body>\r\n</html>";
 var finalWF = '';
+
+if (process.argv[2]) {
+	explorePath = process.argv[2];
+} else {
+	explorePath = process.cwd();
+}
 
 function log(input) {
 	console.log(input);
@@ -30,10 +36,10 @@ function mapDir(files) {
 			cssF.push(files[i]);
 		} else if (files[i].substr(-5,5) == '.html') {
 			if (!htmlFILE) {
-				htmlFILE = files[i];
+				htmlFILE = explorePath+'/'+files[i];
 			}
 		} else if (files[i].indexOf('.') < 0) {
-			fs.readdir(process.cwd()+'/'+files[i],function(err,nestedFiles) {
+			fs.readdir(explorePath+'/'+files[i],function(err,nestedFiles) {
 				if (err) {
 					error(err);
 				} else {
@@ -48,7 +54,7 @@ log('   ');
 log(' Backkick 0.0.1 '.inverse.black);
 log('   ');
 log('info'.inverse.red+' '+'explore directory'.blue);
-fs.readdir(process.cwd(),function(err,files) {
+fs.readdir(explorePath,function(err,files) {
 	if (err) {
 		error(err);
 	} else {
