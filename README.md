@@ -16,11 +16,21 @@ Backkick will do it for you, it will even create a html file if you don't have o
    
 ###Usage
 
-    $ cd your/project/folder/path
-    $ backkick
+    $ backkick optional/path/to/folder
+
+
+`optional/path/to/folder` is optional. If leave blank, backkick will work with the folder you are currently at on the terminal.
     
 ----
 ###Changelog
+
+**0.0.3**
+
+- add option for directory
+
+**0.0.2**
+
+- Add README.md
 
 **0.0.1**
 
@@ -28,9 +38,6 @@ Backkick will do it for you, it will even create a html file if you don't have o
 - First commit
 - Add indentation to html file
 - Support for html4
-
-**0.0.2**
-- Add README.md
 
 ---
 
