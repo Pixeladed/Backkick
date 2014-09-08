@@ -3,10 +3,11 @@
 var fs = require('fs');
 var colors = require('colors');
 var readline = require('readline');
+var http = require('http');
 var nestedDir = [];
 var jsF = [];
 var cssF = [];
-var htmlFILE,explorePath;
+var htmlFILE,explorePath = process.cwd();
 var terminal = readline.createInterface({
 	input:process.stdin,
 	output:process.stdout
@@ -14,22 +15,90 @@ var terminal = readline.createInterface({
 var beginWF = "<!DOCTYPE html>\r\n<html>\r\n\t<head>\r\n\t\t<title> </title>";
 var endWF = "\r\n\t</head>\r\n\t<body>\r\n\t\t\r\n\t</body>\r\n</html>";
 var finalWF = '';
+var optLib = [];
+var libraries = {
+	'normalize':{
+		'url':'http://necolas.github.io/normalize.css/3.0.1/normalize.css',
+		'name':'normalize.css',
+		'type':'css'
+	},
+	'jquery':{
+		'url':'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js',
+		'name':'jquery.js',
+		'type':'js'
+	},
+	'angular':{
+		'url':'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js',
+		'name':'angular.js',
+		'type':'js'
+	},
+	'dojo':{
+		'url':'http://ajax.googleapis.com/ajax/libs/dojo/1.10.0/dojo/dojo.js',
+		'name':'dojo.js',
+		'type':'js'
+	},
+	'ext':{
+		'url':'http://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js',
+		'name':'ext.js',
+		'type':'js'
+	},
+	'mootools':{
+		'url':'http://ajax.googleapis.com/ajax/libs/mootools/1.5.0/mootools-yui-compressed.js',
+		'name':'mootools.js',
+		'type':'js'
+	},
+	'three':{
+		'url':'http://ajax.googleapis.com/ajax/libs/threejs/r67/three.min.js',
+		'name':'three.js',
+		'type':'js'
+	},
+	'backbone':{
+		'url':'http://backbonejs.org/backbone.js',
+		'name':'backbone.js',
+		'type':'js'
+	},
+	'yue':{
+		'url':'http://rawgit.com/lepture/yue.css/master/yue.css',
+		'name':'yue.css',
+		'type':'css'
+	}
+}
 
-if (process.argv[2]) {
+log('   ');
+log(' Backkick 0.0.5 '.inverse.black);
+log('   ');
+
+function download(name,url) {
+	var file = fs.createWriteStream(name);
+	var request = http.get(url, function(response) {
+  		response.pipe(file);
+	});
+}
+
+if (process.argv[2] && process.argv[2].substr(0,1) != '[' && process.argv[2].substr(-1,1) != ']') {
 	explorePath = process.argv[2];
 } else {
+	optLib = process.argv[2].substring(1,process.argv[2].length-1).split(',');
 	explorePath = process.cwd();
+}
+
+for (v=0;v<optLib.length;v++) {
+	if (libraries[optLib[v]]) {	
+		download(libraries[optLib[v]].name,libraries[optLib[v]].url);
+	} else {
+		log('info'.inverse.red+' Library not supported');
+	}
 }
 
 function log(input) {
 	console.log(input);
 }
 function error(error) {
-	log('ERROR'.inverse.red+' '+error);
+	// log('ERROR'.inverse.red+' '+error);
+	return;
 }
 function mapDir(files) {
 	for (i=0;i<files.length;i++) {
-		log('file'+' '+files[i].yellow);
 		if (files[i].substr(-3,3) == '.js') {
 			jsF.push(files[i]);
 		} else if (files[i].substr(-4,4) == '.css') {
@@ -50,9 +119,6 @@ function mapDir(files) {
 	}
 }
 
-log('   ');
-log(' Backkick 0.0.1 '.inverse.black);
-log('   ');
 log('info'.inverse.red+' '+'explore directory'.blue);
 fs.readdir(explorePath,function(err,files) {
 	if (err) {
@@ -61,29 +127,29 @@ fs.readdir(explorePath,function(err,files) {
 
 		mapDir(files);
 
-		log('JS FILES'.green+' '+jsF);
-		log('CSS FILES'.green+' '+cssF);
+		log('JS FILES'.green+' '+jsF.toString().yellow);
+		log('CSS FILES'.green+' '+cssF.toString().yellow);
 
 		for (j=0;j<jsF.length;j++) {
 			beginWF = beginWF + '\r\n\t\t<script type="text/javascript" src="'+jsF[j]+'"></script>';
-			finalWF = beginWF + endWF;
 		}
 		for (c=0;c<cssF.length;c++) {
 			beginWF = beginWF + '\r\n\t\t<link rel="stylesheet" type="text/css" href="'+cssF[c]+'"/>';
-			finalWF = beginWF + endWF;
 		}
+		finalWF = beginWF + endWF;
 
 		if (htmlFILE) {
 			log('INPUT'.red+' '+htmlFILE);
+			log('   ');
 			fs.readFile(htmlFILE,'utf8',function(err,data) {
 				if (err) {
 					error(err);
 				} else {
 					if (data.length >= 1) {
-						terminal.question('Do you want to overwrite data in '+htmlFILE+'? [ Y or N ] ',function(answer){
+						terminal.question('Do you want to overwrite data in html file? [ Y or N ] ',function(answer){
 							terminal.close();
 							if (answer.toLowerCase() == 'y') {
-								log(' WRITING FILE '.cyan+' '+htmlFILE.yellow);
+								log('WRITING FILE'.cyan+' '+htmlFILE.yellow);
 								//WRITE INTO THE FILE HERE
 								fs.writeFile(htmlFILE,finalWF);
 								log('overwritten'.inverse.red);
@@ -93,7 +159,7 @@ fs.readdir(explorePath,function(err,files) {
 							}
 						});
 					} else {
-						log(' WRITING FILE '.cyan+' '+htmlFILE.yellow);
+						log('WRITING FILE'.cyan+' '+htmlFILE.yellow);
 						//WRITE INTO THE FILE HERE
 						fs.writeFile(htmlFILE,finalWF,function(err) {
 							if (err) {
@@ -109,9 +175,9 @@ fs.readdir(explorePath,function(err,files) {
 		} else {
 			//WRITE TO FILE HERE
 			log('INPUT'.red+' none');
-			htmlFILE = "Backkick "+Math.random()+'.html';
+			htmlFILE = "Backkick "+Math.round(Math.random()*1000)/1000+'.html';
 			log('info'.inverse.red+' '+'create '+htmlFILE);
-			fs.writeFile(htmlFILE,finalWF,function(err) {
+			fs.writeFile(explorePath+'/'+htmlFILE,finalWF,function(err) {
 				if (err) {
 					error(err);
 				} else {
