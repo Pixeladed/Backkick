@@ -4,7 +4,7 @@ Command line tool to link css and js files
 ---
 ###Installation
 
-    npm install backkick
+    $ npm install backkick
    
 ---
 ###Purpose
@@ -16,13 +16,39 @@ Backkick will do it for you, it will even create a html file if you don't have o
    
 ###Usage
 
-    $ backkick optional/path/to/folder
+    $ backkick options
 
-
-`optional/path/to/folder` is optional. If leave blank, backkick will work with the folder you are currently at on the terminal.
     
 ----
+
+###Options
+
+You can only use 1 of the 2 options:
+
+####1. path/to/folder
+
+This will run backkick on the folder provided. If leave blank or use library option instead, backkick will run on the folder of which you are at on the terminal.
+
+	$ backkick /Users/someone/Desktop/myproject 
+
+####2. [libraries]
+
+This option will download and link the libraries listed inside `[]` separated by `,`
+
+**Avalaible libraries:** normalize ; jquery ; angular ; dojo ; ext ; mootools ; three ; backbone ; yue
+
+	$ backkick [jquery,normalize,yue]
+
+----
 ###Changelog
+
+**0.0.5**
+
+- Shortened generated html file name to 3 decimal places
+- Generate html file in correct path
+- Remove found files logging
+- Change option values
+- Add support for libraries
 
 **0.0.3**
 
