@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Backkick : Nodejs Command Line Tool to initialise your project">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Backkick</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Pixeladed/Backkick">View on GitHub</a>
+
+          <h1 id="project_title">Backkick</h1>
+          <h2 id="project_tagline">Nodejs Command Line Tool to initialise your project</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Pixeladed/Backkick/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Pixeladed/Backkick/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="backkick" class="anchor" href="#backkick"><span class="octicon octicon-link"></span></a>Backkick</h1>
+
+<p>Command line tool to link css and js files</p>
+
+<hr><h3>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<pre><code>$ npm install backkick
+</code></pre>
+
+<hr><h3>
+<a name="purpose" class="anchor" href="#purpose"><span class="octicon octicon-link"></span></a>Purpose</h3>
+
+<p>Are you tired of hacing to type <code>&lt;!DOCTYPE html&gt;</code> and linking all your css and js files to your html file?</p>
+
+<p>Backkick will do it for you, it will even create a html file if you don't have one!</p>
+
+<hr><h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<pre><code>$ backkick options
+</code></pre>
+
+<hr><h3>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<p>You can only use 1 of the 2 options:</p>
+
+<h4>
+<a name="1-pathtofolder" class="anchor" href="#1-pathtofolder"><span class="octicon octicon-link"></span></a>1. path/to/folder</h4>
+
+<p>This will run backkick on the folder provided. If leave blank or use library option instead, backkick will run on the folder of which you are at on the terminal.</p>
+
+<pre><code>$ backkick /Users/someone/Desktop/myproject 
+</code></pre>
+
+<h4>
+<a name="2-libraries" class="anchor" href="#2-libraries"><span class="octicon octicon-link"></span></a>2. [libraries]</h4>
+
+<p>This option will download and link the libraries listed inside <code>[]</code> separated by <code>,</code></p>
+
+<p><strong>Avalaible libraries:</strong> normalize ; jquery ; angular ; dojo ; ext ; mootools ; three ; backbone ; yue</p>
+
+<pre><code>$ backkick [jquery,normalize,yue]
+</code></pre>
+
+<hr><h3>
+<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>Changelog</h3>
+
+<p><strong>0.0.5</strong></p>
+
+<ul>
+<li>Shortened generated html file name to 3 decimal places</li>
+<li>Generate html file in correct path</li>
+<li>Remove found files logging</li>
+<li>Change option values</li>
+<li>Add support for libraries</li>
+</ul><p><strong>0.0.3</strong></p>
+
+<ul>
+<li>add option for directory</li>
+</ul><p><strong>0.0.2</strong></p>
+
+<ul>
+<li>Add README.md</li>
+</ul><p><strong>0.0.1</strong></p>
+
+<ul>
+<li>Include mapping for nested folders</li>
+<li>First commit</li>
+<li>Add indentation to html file</li>
+<li>Support for html4</li>
+</ul><hr><h3>
+<a name="contributers" class="anchor" href="#contributers"><span class="octicon octicon-link"></span></a>Contributers</h3>
+
+<p><strong>Project Github</strong>
+<a href="https://github.com/Pixeladed/Backkick">Github Backkick</a></p>
+
+<p><strong>Creator</strong>
+<a href="https://twitter.com/vietminhle">@vietminhle</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Backkick maintained by <a href="https://github.com/Pixeladed">Pixeladed</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
