@@ -1,0 +1,12 @@
+{
+  "name": "backkick",
+  "version": "0.1.0",
+  "description": "A command-line tool to link all css and js files",
+  "author": "Minh Le",
+  "bin": {
+    "backkick": "backkick.js"
+  },
+  "dependencies": {
+    "colors": "^0.6.2"
+  }
+}
